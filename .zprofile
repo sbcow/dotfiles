@@ -1,6 +1,6 @@
  if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
    exec tmux
-   tmux source-file ~/.tmux.conf
+   tmux source-file $HOME/.tmux.conf
  fi
 
 if [ -x /usr/libexec/path_helper ]; then
@@ -19,3 +19,6 @@ rmext() {
         find . -name "$1" -type f -delete
     fi
 }
+
+export PATH="/opt/homebrew/bin:$PATH"
+eval "$(conda "shell.$(basename "${SHELL}")" hook)"

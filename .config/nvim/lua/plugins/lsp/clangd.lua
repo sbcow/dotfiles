@@ -36,7 +36,7 @@ local default_capabilities = {
       editsNearCursor = true,
     },
   },
-  offsetEncoding = { 'utf-8', 'utf-16' },
+  offsetEncoding = {'utf-16'},
 }
 
 return {
@@ -82,7 +82,7 @@ https://clangd.llvm.org/installation.html
           '.git'
         )
       ]],
-      capabilities = [[default capabilities, with offsetEncoding utf-8]],
+      -- capabilities = [[default capabilities, with offsetEncoding utf-8]],
     },
   },
 }

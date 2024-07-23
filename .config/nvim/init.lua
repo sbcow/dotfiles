@@ -245,6 +245,7 @@ vim.keymap.set("n", "<leader>{", "{V}gq", opts)
 vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
 
 
+-- vim.g.loaded_python3_provider = 0 -- Could not load Python, solution from :checkhealth
 
 -- Set git editor to open neovim without nesting
 local executable = function(e)
