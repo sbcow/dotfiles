@@ -113,6 +113,8 @@ return {
 					-- },
 					-- }),
 				},
+
+        event = "InsertEnter",
 				-- Completion window formatting
 				window = {
 					-- completion = cmp.config.window.bordered(),

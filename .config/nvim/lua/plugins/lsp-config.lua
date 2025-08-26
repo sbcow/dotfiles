@@ -1,4 +1,4 @@
-local lsp_servers = { "lua_ls", "clangd", "pyright", "texlab" }
+local lsp_servers = { "lua_ls", "clangd", "pyright", "texlab", "julials"}
 
 return {
   {
@@ -42,6 +42,7 @@ return {
       lspconfig.clangd.setup(require("plugins.lsp.clangd"))
       lspconfig.pyright.setup(require("plugins.lsp.pyright"))
       lspconfig.texlab.setup(require("plugins.lsp.texlab"))
+      lspconfig.julials.setup(require("plugins.lsp.julials"))
 
       -- Keymaps
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})

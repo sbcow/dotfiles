@@ -92,6 +92,12 @@ require("lazy").setup("plugins") -- specifies the plugins.lua file, can also be 
 require("catppuccin").setup()
 
 --------------------------
+-- remote-nvim setup -----
+--------------------------
+
+require("remote-nvim").setup()
+
+--------------------------
 -- Telescope setup -------
 --------------------------
 
@@ -136,6 +142,22 @@ require('neo-tree').setup({
 
 })
 
+--------------------------------------
+-- nvim-tmux-navigation --------------
+--------------------------------------
+
+require('nvim-tmux-navigation').setup({
+        disable_when_zoomed = true, -- defaults to false
+        keybindings = {
+            left = "<C-h>",
+            down = "<C-j>",
+            up = "<C-k>",
+            right = "<C-l>",
+            last_active = "<C-\\>",
+            next = "<C-Space>",
+        }
+})
+
 -------------------------
 -- Lualine --------------
 -------------------------
@@ -147,6 +169,20 @@ require('lualine').setup()
 -------------------------
 
 require('Comment').setup()
+
+
+----------------------
+-- Copilot -----------
+----------------------
+
+vim.keymap.set('i', 'C-M-w', 'i<Plug>(copilot-accept-word)')
+vim.keymap.set('i', 'C-M-i', 'i<Plug>(copilot-accept-line)')
+vim.keymap.set('i', 'C-M-d', 'i<Plug>(copilot-dismiss)')
+vim.keymap.set('i', 'C-M-n', 'i<Plug>(copilot-next)')
+vim.keymap.set('i', 'C-M-p', 'i<Plug>(copilot-previous)')
+vim.keymap.set('i', 'C-M-<leader>', 'i<Plug>(copilot-suggest)')
+vim.keymap.set('n', '<leader>co', ':Copilot<CR>')
+
 
 -------------------------
 -- Keymaps --------------
@@ -256,7 +292,6 @@ if executable('nvr') or vim.fn.has('nvim') then
 end
 
 -- Set Latex stuff
-
 vim.g.vimtex_view_method = "skim"
 vim.g.vimtex_view_general_viewer = "skim"
 vim.g.vimtex_view_forward_search_on_start = false
@@ -275,3 +310,4 @@ vim.api.nvim_create_user_command("DiagnosticToggle", function()
 		signs = not vt,
 	}
 end, { desc = "toggle diagnostic" })
+
