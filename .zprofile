@@ -1,19 +1,44 @@
+# Once at login; for:
+# - Set system-wide environment variables
+# - Run initialization scripts
+
+# Locale
+LC_CTYPE=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+
+# Clear path and initialize system default
 if [ -x /usr/libexec/path_helper ]; then
-        PATH="" # <- ADD THIS LINE (right before path_helper call)
-        eval `/usr/libexec/path_helper -s`
+    eval `/usr/libexec/path_helper -s`
 fi
 
+# Prepend custom paths (highest priority first)
+typeset -U path  # remove duplicates automatically
+path=(
+    /opt/homebrew/bin
+    /usr/local/bin
+    /Users/sean.cowan/homebrew/bin
+    # /Users/sean.cowan/code/system/nvim-macos-arm64/bin
+    /Users/sean.cowan/code/system/bin/neovim/bin
+    /Users/sean.cowan/code/texlive/bin/universal-darwin
+    /Users/sean.cowan/.juliaup/bin
+    /opt/local/bin
+    ~/.local/bin
+    $path
+)
+export PATH
+
 export CLICOLOR=1
-export PATH=/usr/local/bin:$PATH
-# export EDITOR=vim
-# export EDITOR=/usr/local/bin/nvim
+
+# EDITOR, CTAGS
+export EDITOR=nvim
 ctags=/usr/local/bin/ctags
-export PATH=/Users/sean.cowan/homebrew/bin:$PATH
 
-rmext() {
-    if [ "$1" != "" ]; then # or better, if [ -n "$1" ]
-        echo | find . -name "$1" -type f
-        find . -name "$1" -type f -delete
-    fi
-}
+# Conda
+if [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then
+    . "$HOME/miniforge3/etc/profile.d/conda.sh"
+fi
 
+# Mamba
+if [ -f "$HOME/miniforge3/etc/profile.d/mamba.sh" ]; then
+    . "$HOME/miniforge3/etc/profile.d/mamba.sh"
+fi

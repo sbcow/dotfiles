@@ -11,6 +11,7 @@ return {
 	-- Snippet engine
 	{
 		"L3MON4D3/LuaSnip",
+    event="InsertEnter",
 		dependencies = {
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets", -- Community-based snippet database
@@ -19,6 +20,7 @@ return {
 	-- Completion engine
 	{
 		"hrsh7th/nvim-cmp",
+    event = "InsertEnter",
 		config = function()
 			local cmp = require("cmp")
       local luasnip = require("luasnip")

@@ -1,3 +1,4 @@
 return {
-  "lervag/vimtex"
+	"lervag/vimtex",
+	event = { "BufReadPre", "BufNewFile" },
 }

@@ -81,21 +81,36 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup of lazy
-
-require("lazy").setup("plugins") -- specifies the plugins.lua file, can also be directory with all files in separate .lua files
-
-
---------------------------
--- Cattpuccin setup ------
---------------------------
-
-require("catppuccin").setup()
+require("lazy").setup({
+  spec = "plugins",
+  rocks = {
+    enabled = false,
+    hererocks = false,
+  },
+})
 
 --------------------------
--- remote-nvim setup -----
+-- LSP -------------------
 --------------------------
 
-require("remote-nvim").setup()
+local servers = { 'clangd', 'pyright', 'marksman', 'texlab', 'lua_ls', 'julials' }
+
+for _, server_name in ipairs(servers) do
+  local ok, server_config = pcall(require, "plugins.lsp." .. server_name)
+  if ok and type(server_config) == "table" then
+    -- Register the server config which merges with nvim-lspconfig defaults
+    vim.lsp.config(server_name, server_config)
+    -- Enable the server
+    vim.lsp.enable(server_name)
+  else
+    vim.notify("LSP config for " .. server_name .. " not found or invalid", vim.log.levels.WARN)
+  end
+end
+
+vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
 
 --------------------------
 -- Telescope setup -------
@@ -162,26 +177,26 @@ require('nvim-tmux-navigation').setup({
 -- Lualine --------------
 -------------------------
 
-require('lualine').setup()
+-- require('lualine').setup()
 
 -------------------------
 -- Comment --------------
 -------------------------
 
-require('Comment').setup()
+-- require('Comment').setup()
 
 
 ----------------------
 -- Copilot -----------
 ----------------------
 
-vim.keymap.set('i', 'C-M-w', 'i<Plug>(copilot-accept-word)')
-vim.keymap.set('i', 'C-M-i', 'i<Plug>(copilot-accept-line)')
-vim.keymap.set('i', 'C-M-d', 'i<Plug>(copilot-dismiss)')
-vim.keymap.set('i', 'C-M-n', 'i<Plug>(copilot-next)')
-vim.keymap.set('i', 'C-M-p', 'i<Plug>(copilot-previous)')
-vim.keymap.set('i', 'C-M-<leader>', 'i<Plug>(copilot-suggest)')
-vim.keymap.set('n', '<leader>co', ':Copilot<CR>')
+-- vim.keymap.set('i', 'C-M-w', 'i<Plug>(copilot-accept-word)')
+-- vim.keymap.set('i', 'C-M-i', 'i<Plug>(copilot-accept-line)')
+-- vim.keymap.set('i', 'C-M-d', 'i<Plug>(copilot-dismiss)')
+-- vim.keymap.set('i', 'C-M-n', 'i<Plug>(copilot-next)')
+-- vim.keymap.set('i', 'C-M-p', 'i<Plug>(copilot-previous)')
+vim.keymap.set('n', '<leader>cs', '<Plug>(copilot-suggest)')
+vim.keymap.set('n', '<leader>co', ':Copilot panel<CR>')
 
 
 -------------------------
@@ -311,3 +326,5 @@ vim.api.nvim_create_user_command("DiagnosticToggle", function()
 	}
 end, { desc = "toggle diagnostic" })
 
+-- Add to path
+vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.stdpath("data") .. "/mason/bin"
