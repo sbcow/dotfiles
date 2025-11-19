@@ -31,7 +31,7 @@ export CLICOLOR=1
 
 # EDITOR, CTAGS
 export EDITOR=nvim
-ctags=/usr/local/bin/ctags
+# ctags=/usr/local/bin/ctags
 
 # Conda
 if [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then

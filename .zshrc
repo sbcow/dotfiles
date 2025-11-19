@@ -4,17 +4,41 @@
 # - Path exports for software
 # - Prompt customizations
 
-#Prompt Customization
-PROMPT='%F{red}%*%f %F{white}%?%f %B%F{yellow}%2~%f%b %% '
-
+# Load the 'vcs_info' function, which provides information about the
+# current version control system (Git, Mercurial, etc.)
 autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-RPROMPT='${vcs_info_msg_0_}'
-# PROMPT='${vcs_info_msg_0_}%# '
-zstyle ':vcs_info:git:*' formats '%b'
 
+# Define a function that runs vcs_info before each prompt is drawn
+# This updates the Git branch info for the current directory.
+precmd_vcs_info() { vcs_info }
+
+# Add 'precmd_vcs_info' to the list of functions that run before
+# each prompt is displayed (precmd_functions is a Zsh array)
+precmd_functions+=( precmd_vcs_info )
+
+# Enable prompt string substitution so variables like ${vcs_info_msg_0_}
+# and conditionals (e.g. %?) are evaluated before showing the prompt.
+setopt prompt_subst
+
+# Set the format for Git branches in vcs_info:
+# %b = branch name, wrapped in parentheses and shown in blue (%F{blue})
+# %f resets the color back to default
+zstyle ':vcs_info:git:*' formats '%F{blue}(%b)%f'
+
+# Enable vcs_info for Git (it supports multiple version control systems)
+zstyle ':vcs_info:*' enable git
+
+# PROMPT defines the text shown as the main (left) prompt.
+# Each part:
+#   %F{red}  -> set text color to red
+#   %*       -> show current time (HH:MM:SS)
+#   %f       -> reset color
+#   %F{white}%(?..✘ %?)%f  -> if the last command failed (%?), show "✘ <exit code>" in white
+#   %B%F{yellow}%2~%f%b    -> show the current working directory (%2~ shows up to 2 directories deep)
+#                             in bold yellow, then reset colors and boldness
+#   ${vcs_info_msg_0_}     -> show Git branch info from vcs_info (e.g. (main))
+#   ❯                      -> draw a right-pointing prompt character
+PROMPT='%F{red}%*%f %F{white}%(?..✘ %?)%f %B%F{yellow}%2~%f%b ${vcs_info_msg_0_} ❯ '
 
 # Aliases
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME/'
@@ -27,7 +51,6 @@ alias ssh_llof="ssh sean@10.182.0.53"
 alias ssh_emma="ssh sbcow@10.181.126.218"
 
 alias restartkernel='exec zsh -l'
-alias jupyterlab='jupyter-lab > jupyter-lab.log 2>&1 &'
 alias jupyterlab='jupyter-lab > jupyter-lab.log 2>&1 &'
 alias marimoedit='marimo edit 2>&1 &'
 alias jupyter-remote-llof="ssh -L 8887:localhost:8887 sean@10.182.0.53 'source /home/sean/miniconda3/etc/profile.d/conda.sh && conda activate ll-of && jupyter-lab --no-browser --port=8887'"

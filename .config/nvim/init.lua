@@ -289,6 +289,10 @@ vim.keymap.set("n", "<leader>dt", "<cmd>DiagnosticToggle<cr>", opts)
 vim.keymap.set("n", "<leader>vc", "<cmd>VimtexCompile<cr>", opts)
 vim.keymap.set("n", "<leader>vx", "<cmd>VimtexStop<cr>", opts)
 vim.keymap.set("n", "<leader>ve", "<cmd>VimtexErrors<cr>", opts)
+vim.keymap.set("n", "<leader>vs", "<cmd>VimtexStatus<cr>", opts)
+vim.keymap.set("n", "<leader>vo", "<cmd>VimtexCompileOutput<cr>", opts)
+vim.keymap.set("n", "<leader>vcl", "<cmd>VimtexCountLetters<cr>", opts)
+vim.keymap.set("n", "<leader>vcw", "<cmd>VimtexCountWords<cr>", opts)
 vim.keymap.set("n", "<leader>{", "{V}gq", opts)
 
 -- Keymaps
@@ -325,6 +329,53 @@ vim.api.nvim_create_user_command("DiagnosticToggle", function()
 		signs = not vt,
 	}
 end, { desc = "toggle diagnostic" })
+
+
+
+-- Add spelling
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {'markdown', 'text'},
+  command = 'setlocal spell'
+})
+
+-- Define a custom function to populate quickfix list with spelling errors
+vim.cmd [[
+  command! SpellCheckAll lua SpellCheckAllFiles()
+]]
+
+function SpellCheckAllFiles()
+  -- Clear the quickfix list
+  vim.fn.setqflist({})
+  -- Grep for spelling mistakes in all files
+  vim.cmd [[silent! vimgrep /\v\<\w\{-}\>/gj **]]
+  -- Open the quickfix list
+  vim.cmd 'copen'
+end
+
+-- -- Bind the custom command to a key, e.g., <leader>s
+-- vim.api.nvim_set_keymap('n', '<leader>sc', ':SpellCheckAll<CR>', { noremap = true, silent = true })
+--
+-- -- Function to smart search across lines
+-- vim.api.nvim_create_user_command("SmartSearch", function(opts)
+--   local pattern = opts.args
+--   -- Replace one or more spaces with \_s* to match any whitespace (incl. newlines)
+--   pattern = pattern:gsub("%s+", [[\_s*]])
+--   -- Start the search
+--   vim.cmd("normal! /" .. pattern .. "\\<CR>")
+-- end, {
+--   nargs = 1,
+--   complete = "file",
+-- })
+--
+-- -- Override standard / search
+-- vim.keymap.set("n", "/", function()
+--   vim.ui.input({ prompt = "Smart Search: " }, function(input)
+--     if input then
+--       vim.cmd("SmartSearch " .. input)
+--     end
+--   end)
+-- end, { desc = "Smart multiline search" })
+
 
 -- Add to path
 vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.stdpath("data") .. "/mason/bin"
