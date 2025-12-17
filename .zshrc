@@ -53,9 +53,6 @@ alias ssh_emma="ssh sbcow@10.181.126.218"
 alias restartkernel='exec zsh -l'
 alias jupyterlab='jupyter-lab > jupyter-lab.log 2>&1 &'
 alias marimoedit='marimo edit 2>&1 &'
-alias jupyter-remote-llof="ssh -L 8887:localhost:8887 sean@10.182.0.53 'source /home/sean/miniconda3/etc/profile.d/conda.sh && conda activate ll-of && jupyter-lab --no-browser --port=8887'"
-alias jupyter-remote-emma-taymod="ssh -L 8887:localhost:8887 sbcow@emma 'source /home/sbcow/miniforge3/etc/profile.d/conda.sh && conda activate taymod && jupyter-lab --no-browser --port=8887'"
-alias jupyter-remote-emma-audi="ssh -L 8887:localhost:8887 sbcow@emma 'source /home/sbcow/miniforge3/etc/profile.d/conda.sh && conda activate audi && jupyter-lab --no-browser --port=8887'"
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias tmux-kill-sesh='tmux kill-session -t'
 alias ca='conda activate'
@@ -85,14 +82,14 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 if [[ $- == *i* ]]; then   # only for interactive shells
-  __conda_setup="$('/Users/sean.cowan/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+  __conda_setup="$('/Users/sean/opt/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
   if [ $? -eq 0 ]; then
       eval "$__conda_setup"
   else
-      if [ -f "/Users/sean.cowan/miniforge3/etc/profile.d/conda.sh" ]; then
-          . "/Users/sean.cowan/miniforge3/etc/profile.d/conda.sh"
+      if [ -f "/Users/sean/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+          . "/Users/sean/opt/miniconda3/etc/profile.d/conda.sh"
       else
-          export PATH="/Users/sean.cowan/miniforge3/bin:$PATH"
+          export PATH="/Users/sean/opt/miniconda3/bin:$PATH"
       fi
   fi
   unset __conda_setup
@@ -100,3 +97,4 @@ if [[ $- == *i* ]]; then   # only for interactive shells
 
   conda activate base
 fi
+export PATH="$HOME/Miniforge3/bin:$PATH"

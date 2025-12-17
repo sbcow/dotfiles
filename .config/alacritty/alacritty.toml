@@ -49,7 +49,7 @@ TERM = "xterm-256color"
 # bold_italic="Hack Nerd Font"
 # medium_italic="Hack Nerd Font"
 
-size = 24
+size = 16
 
 # [font.bold]
 # family = "Hack Nerd Font"

@@ -14,15 +14,13 @@ fi
 # Prepend custom paths (highest priority first)
 typeset -U path  # remove duplicates automatically
 path=(
-    /opt/homebrew/bin
     /usr/local/bin
-    /Users/sean.cowan/homebrew/bin
-    # /Users/sean.cowan/code/system/nvim-macos-arm64/bin
-    /Users/sean.cowan/code/system/bin/neovim/bin
-    /Users/sean.cowan/code/texlive/bin/universal-darwin
-    /Users/sean.cowan/.juliaup/bin
-    /opt/local/bin
-    ~/.local/bin
+    /Users/sean/homebrew/bin
+    # /Users/sean/code/system/nvim-macos-arm64/bin
+    /Users/sean/code/system/bin/neovim/bin
+    /Users/sean/code/texlive/bin/universal-darwin
+    /Users/sean/.juliaup/bin
+    /Users/sean/.local/bin
     $path
 )
 export PATH
@@ -34,11 +32,11 @@ export EDITOR=nvim
 # ctags=/usr/local/bin/ctags
 
 # Conda
-if [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then
-    . "$HOME/miniforge3/etc/profile.d/conda.sh"
+if [ -f "$HOME/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+    . "$HOME/opt/miniconda3/etc/profile.d/conda.sh"
 fi
 
 # Mamba
-if [ -f "$HOME/miniforge3/etc/profile.d/mamba.sh" ]; then
-    . "$HOME/miniforge3/etc/profile.d/mamba.sh"
+if [ -f "$HOME/opt/miniconda3/etc/profile.d/mamba.sh" ]; then
+    . "$HOME/opt/miniconda3/etc/profile.d/mamba.sh"
 fi
