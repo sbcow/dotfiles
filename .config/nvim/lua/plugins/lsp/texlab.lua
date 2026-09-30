@@ -65,60 +65,70 @@ end
 --   end)
 -- end
 
+local root_files = {
+	"pyproject.toml",
+	"setup.py",
+	"setup.cfg",
+	"requirements.txt",
+	"Pipfile",
+	"pyrightconfig.json",
+	".git",
+}
+
 return {
   cmd = { "texlab" },
   filetypes = { "tex", "plaintex", "bib" },
-  root_dir = util.root_pattern(".git", ".latexmkrc", ".texlabroot", "texlabroot", "Tectonic.toml"),
-  single_file_support = true,
-  settings = {
-    texlab = {
-      rootDirectory = nil,
-      build = {
-        executable = "latexmk",
-        args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-        onSave = false,
-        forwardSearchAfter = false,
-      },
-      auxDirectory = ".",
-      forwardSearch = {
-        executable = nil,
-        args = {},
-      },
-      chktex = {
-        onOpenAndSave = false,
-        onEdit = false,
-      },
-      diagnosticsDelay = 300,
-      latexFormatter = "latexindent",
-      latexindent = {
-        ["local"] = nil, -- local is a reserved keyword
-        modifyLineBreaks = false,
-      },
-      bibtexFormatter = "texlab",
-      formatterLineLength = 80,
-    },
-  },
-  commands = {
-    TexlabBuild = {
-      function()
-        buf_build(0)
-      end,
-      description = "Build the current buffer",
-    },
-    TexlabForward = {
-      function()
-        buf_search(0)
-      end,
-      description = "Forward search from current position",
-    },
-  },
-  docs = {
-    description = [[
-https://github.com/latex-lsp/texlab
-
-A completion engine built from scratch for (La)TeX.
-
-See https://github.com/latex-lsp/texlab/wiki/Configuration for configuration options.
-]],
-  },
+	root_markers = root_files,
+--   single_file_support = true,
+--   settings = {
+--     texlab = {
+--       rootDirectory = nil,
+--       build = {
+--         executable = "latexmk",
+--         args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+--         onSave = false,
+--         forwardSearchAfter = false,
+--       },
+--       auxDirectory = ".",
+--       forwardSearch = {
+--         executable = nil,
+--         args = {},
+--       },
+--       chktex = {
+--         onOpenAndSave = false,
+--         onEdit = false,
+--       },
+--       diagnosticsDelay = 300,
+--       latexFormatter = "latexindent",
+--       latexindent = {
+--         ["local"] = nil, -- local is a reserved keyword
+--         modifyLineBreaks = false,
+--       },
+--       bibtexFormatter = "texlab",
+--       formatterLineLength = 80,
+--     },
+--   },
+--   commands = {
+--     TexlabBuild = {
+--       function()
+--         buf_build(0)
+--       end,
+--       description = "Build the current buffer",
+--     },
+--     TexlabForward = {
+--       function()
+--         buf_search(0)
+--       end,
+--       description = "Forward search from current position",
+--     },
+--   },
+--   docs = {
+--     description = [[
+-- https://github.com/latex-lsp/texlab
+--
+-- A completion engine built from scratch for (La)TeX.
+--
+-- See https://github.com/latex-lsp/texlab/wiki/Configuration for configuration options.
+-- ]],
+--   },
 }

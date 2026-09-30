@@ -93,7 +93,7 @@ require("lazy").setup({
 -- LSP -------------------
 --------------------------
 
-local servers = { 'clangd', 'pyright', 'marksman', 'texlab', 'lua_ls', 'julials' }
+local servers = { 'clangd', 'pyright', 'marksman', 'texlab', 'lua_ls', 'julials', 'tinymist'}
 
 for _, server_name in ipairs(servers) do
   local ok, server_config = pcall(require, "plugins.lsp." .. server_name)

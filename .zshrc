@@ -56,6 +56,7 @@ alias marimoedit='marimo edit 2>&1 &'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias tmux-kill-sesh='tmux kill-session -t'
 alias ca='conda activate'
+alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 
 # Other
 
@@ -81,20 +82,18 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-if [[ $- == *i* ]]; then   # only for interactive shells
-  __conda_setup="$('/Users/sean/opt/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-  if [ $? -eq 0 ]; then
-      eval "$__conda_setup"
-  else
-      if [ -f "/Users/sean/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-          . "/Users/sean/opt/miniconda3/etc/profile.d/conda.sh"
-      else
-          export PATH="/Users/sean/opt/miniconda3/bin:$PATH"
-      fi
-  fi
-  unset __conda_setup
-  # <<< conda initialize <<<
-
-  conda activate base
+__conda_setup="$('/Users/sean/Miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/sean/Miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/sean/Miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/sean/Miniforge3/bin:$PATH"
+    fi
 fi
-export PATH="$HOME/Miniforge3/bin:$PATH"
+unset __conda_setup
+# <<< conda initialize <<<
+
+conda activate base
+# export PATH="$HOME/Miniforge3/bin:$PATH"  # commented out by conda initialize

@@ -1,4 +1,4 @@
-local lsp_servers = { "lua_ls", "clangd", "pyright", "texlab", "julials", "marksman" }
+local lsp_servers = { "lua_ls", "clangd", "pyright", "texlab", "julials", "marksman", "lemminx"}
 
 return {
 	{

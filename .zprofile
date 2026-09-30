@@ -15,12 +15,11 @@ fi
 typeset -U path  # remove duplicates automatically
 path=(
     /usr/local/bin
-    /Users/sean/homebrew/bin
-    # /Users/sean/code/system/nvim-macos-arm64/bin
-    /Users/sean/code/system/bin/neovim/bin
-    /Users/sean/code/texlive/bin/universal-darwin
-    /Users/sean/.juliaup/bin
-    /Users/sean/.local/bin
+    $HOME/homebrew/bin
+    $HOME/code/system/bin/neovim/bin
+    $HOME/code/texlive/bin/universal-darwin
+    $HOME/.juliaup/bin
+    $HOME/.local/bin
     $path
 )
 export PATH
@@ -31,12 +30,12 @@ export CLICOLOR=1
 export EDITOR=nvim
 # ctags=/usr/local/bin/ctags
 
-# Conda
-if [ -f "$HOME/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-    . "$HOME/opt/miniconda3/etc/profile.d/conda.sh"
-fi
-
-# Mamba
-if [ -f "$HOME/opt/miniconda3/etc/profile.d/mamba.sh" ]; then
-    . "$HOME/opt/miniconda3/etc/profile.d/mamba.sh"
-fi
+# # Conda
+# if [ -f "$HOME/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+#     . "$HOME/opt/miniconda3/etc/profile.d/conda.sh"
+# fi
+#
+# # Mamba
+# if [ -f "$HOME/opt/miniconda3/etc/profile.d/mamba.sh" ]; then
+#     . "$HOME/opt/miniconda3/etc/profile.d/mamba.sh"
+# fi

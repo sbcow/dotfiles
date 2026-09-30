@@ -44,6 +44,8 @@ return {
 				}), -- JSON formatting
 				-- null_ls.builtins.formatting.markdownlint, -- Markdown linting
 				-- null_ls.builtins.diagnostics.markdownlint, -- Markdown linting
+				null_ls.builtins.formatting.typstyle, -- Formatting
+				-- null_ls.builtins.formatting.lemminx, -- Formatting
 			},
 		})
 	end,
