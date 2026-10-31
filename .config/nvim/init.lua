@@ -129,6 +129,11 @@ vim.keymap.set('n', '<leader>fb', telescope_builtin.buffers, {})
 
 require('neo-tree').setup({
   filesystem = {
+    bind_to_cwd = true,
+    cwd_target = {
+      sidebar = "global",
+      current = "global",
+    },
     window = {
       mappings = {
         ["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } },
@@ -249,8 +254,8 @@ vim.keymap.set("n", "n", "nzzzv", opts)
 vim.keymap.set("n", "N", "Nzzzv", opts)
 
 -- Neotree 
-vim.keymap.set("n", "<leader>eE", ":Neotree toggle action=focus position=left reveal_force_cwd<CR>", opts)
-vim.keymap.set("n", "<leader>ee", ":Neotree toggle action=focus dir=%:p:h:h position=left reveal_force_cwd<CR>", opts)
+vim.keymap.set("n", "<leader>ee", ":Neotree toggle action=focus position=left reveal_force_cwd<CR>", opts)
+vim.keymap.set("n", "<leader>eE", ":Neotree toggle action=focus dir=%:p:h:h position=left reveal_force_cwd<CR>", opts)
 vim.keymap.set("n", "<leader>el", ":Neotree toggle action=focus source=filesystem position=left<CR>", opts)
 vim.keymap.set("n", "<leader>er", ":Neotree toggle action=focus source=filesystem position=right<CR>", opts)
 vim.keymap.set("n", "<leader>ef", ":Neotree toggle action=focus source=filesystem position=float<CR>", opts)

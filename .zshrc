@@ -57,6 +57,7 @@ alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias tmux-kill-sesh='tmux kill-session -t'
 alias ca='conda activate'
 alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
+alias unisoncloud='unison $HOME/Documents/nextcloud/Obsidian/Brain $HOME/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain'
 
 # Other
 
@@ -80,20 +81,13 @@ rmext() { [ -n "$1" ] && find . -name "$1" -type f -print -delete }
 # fpath additions
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/sean/Miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/sean/Miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/Users/sean/Miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/sean/Miniforge3/bin:$PATH"
-    fi
+# Automatically start tmux in new interactive terminals
+if [[ -o interactive && -z "$TMUX" ]] && command -v tmux >/dev/null 2>&1; then
+    exec tmux new-session -A -s main
 fi
-unset __conda_setup
-# <<< conda initialize <<<
 
-conda activate base
-# export PATH="$HOME/Miniforge3/bin:$PATH"  # commented out by conda initialize
+# Miniforge: initialize Conda and activate base
+if [[ -f "$HOME/Miniforge3/etc/profile.d/conda.sh" ]]; then
+    source "$HOME/Miniforge3/etc/profile.d/conda.sh"
+    conda activate base
+fi
